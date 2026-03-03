@@ -26,7 +26,6 @@ mcp = MCPToolRegistry()
 class TopicRequest(BaseModel):
     topic: str
 
-
 # -----------------------
 # Keyword Extraction
 # -----------------------
