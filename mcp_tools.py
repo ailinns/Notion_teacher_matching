@@ -23,9 +23,7 @@ class MCPToolRegistry:
 
         return self.tools[tool_name](payload)
 
-    # --------------------------
-    # Tool 1: Excel Matching
-    # --------------------------
+    # Excel Matching
     def match_excel_tool(self, payload):
         keywords = payload.get("keywords", [])
 
@@ -34,9 +32,7 @@ class MCPToolRegistry:
 
         return match_advisor_from_excel(keywords)
 
-    # --------------------------
-    # Tool 2: Notion Logging
-    # --------------------------
+    # Notion Logging
     def save_log_tool(self, payload):
 
         return save_to_notion(
