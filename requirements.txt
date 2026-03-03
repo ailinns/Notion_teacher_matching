@@ -1,0 +1,5 @@
+notion-client
+pandas
+openpyxl
+fastapi uvicorn google-generativeai
+python-dotenv

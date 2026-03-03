@@ -1,0 +1,30 @@
+from mcp_tools import MCPToolRegistry
+
+mcp = MCPToolRegistry()
+-------------------------------------
+keywords = extract_keywords(topic)
+
+top3 = mcp.execute(
+    "match_excel",
+    {"keywords": keywords}
+)
+
+**บันทึกลง Notion**
+if top3:
+    best = top3[0]
+
+    mcp.execute(
+        "save_log",
+        {
+            "topic": topic,
+            "keywords": keywords,
+            "advisor": best["advisor"],
+            "score": best["score"]
+        }
+    )
+
+//ส่งผลกลับ frontend
+return {
+    "keywords": keywords,
+    "top_advisors": top3
+}
