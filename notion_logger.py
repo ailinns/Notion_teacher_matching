@@ -30,7 +30,7 @@ def save_to_notion(topic, keywords, top_advisors):
             "Matched Advisor": {
                 "rich_text": [
                     {"text": {"content": advisor_text}}
-                ]
+                ] #rich_text ช่องข้อความที่รองรับ formatting (ตัวหนา, ตัวเอียง, ลิงก์, สี, หลายบรรทัด)
             },
             "Score": {
                 "number": top_advisors[0]["percentage"]
