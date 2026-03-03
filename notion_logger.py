@@ -1,9 +1,6 @@
 from notion_client import Client
 
-# 🔐 ใส่ token ของคุณ
 NOTION_TOKEN = "ntn_S31910885477gtlEYp97gkXxRnCvhUYT8waGtOhuNG88XZ"
-
-# 🗂 ใส่ database id ของคุณ
 DATABASE_ID = "3180be34-25a3-8020-b8ec-fc59222190be"
 
 # สร้าง client
@@ -40,7 +37,5 @@ def save_to_notion(topic, keywords, top_advisors):
             }
         }
     )
-
-    return response
 
     return response
