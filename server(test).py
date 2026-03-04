@@ -1,3 +1,4 @@
+from http.client import HTTPException
 import os
 from fastapi import FastAPI
 from pydantic import BaseModel
@@ -43,28 +44,34 @@ def extract_keywords(topic: str):
 # API Endpoint
 @app.post("/api/match")
 def match_topic(request: TopicRequest):
-
     topic = request.topic
 
     # Extract keywords using Gemini
     keywords = extract_keywords(topic)
 
-    # Match with Excel ผ่าน MCP
-    top3 = mcp.execute(
-        "match_excel",
-        {"keywords": keywords}
-    )
+    # ✅ แก้ตรงนี้ — Match with Excel ผ่าน MCP
+    try:
+        top3 = mcp.execute(
+            "match_excel",
+            {"keywords": keywords}
+        )
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"match_excel failed: {str(e)}")
 
-    # Save best result to Notion ผ่าน MCP
+    # ✅ แก้ตรงนี้ — Save best result to Notion ผ่าน MCP
     if top3:
-        mcp.execute(
-        "save_log",
-    {
-        "topic": topic,
-        "keywords": keywords,
-        "top_advisors": top3
-    }
-)
+        try:
+            mcp.execute(
+                "save_log",
+                {
+                    "topic": topic,
+                    "keywords": ", ".join(keywords),  # ✅ แปลง list → string ด้องด้วย
+                    "top_advisors": top3
+                }
+            )
+        except Exception as e:
+            raise HTTPException(status_code=500, detail=f"save_log failed: {str(e)}")
+
     # Return response to frontend
     return {
         "topic": topic,
